@@ -8,6 +8,7 @@ const app = Vue.createApp({
       dragonHealth: 100,
       knightHealth: 100,
       currentRound: 1,
+      spec_attack: false,
       winner: null,
       logMessage: [],
     };
@@ -26,7 +27,9 @@ const app = Vue.createApp({
       return { width: this.knightHealth + "%" };
     },
     canIUseSpecAttack() {
-      return this.currentRound % 3 !== 0;
+      if (this.currentRound % 3 !== 0) {
+        return (spec_attack = true);
+      }
     },
   },
   watch: {
@@ -47,7 +50,11 @@ const app = Vue.createApp({
   },
   methods: {
     attackDragon() {
-      this.currentRound++;
+      if (this.currentRound === 3) {
+        this.currentRound = 3;
+      } else {
+        this.currentRound++;
+      }
       const attackValue = getRandomValue(5, 12);
       this.dragonHealth -= attackValue;
       this.addLogMessage("knight", "attack", attackValue);
@@ -59,14 +66,19 @@ const app = Vue.createApp({
       this.addLogMessage("dragon", "attack", attackValue);
     },
     specialAttackDragon() {
-      this.currentRound++;
+      this.currentRound = 1;
+      this.spec_attack = false;
       const attackValue = getRandomValue(10, 25);
       this.dragonHealth -= attackValue;
       this.addLogMessage("knight", "special-attack", attackValue);
       this.attackKnight();
     },
     healKnight() {
-      this.currentRound++;
+      if (this.currentRound === 3) {
+        this.currentRound = 3;
+      } else {
+        this.currentRound++;
+      }
       const healValue = getRandomValue(8, 20);
       if (this.knightHealth + healValue > 100) {
         this.knightHealth = 100;
