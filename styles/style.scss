@@ -1,0 +1,160 @@
+$mobile: 576px;
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  background-color: rgb(166, 199, 199);
+}
+
+header {
+  width: 100%;
+  background-color: rgb(165, 121, 185);
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Rock Salt", cursive;
+  font-size: 35px;
+  background-color: rgb(165, 121, 185);
+  color: rgb(80, 75, 75);
+}
+
+.container {
+  flex-direction: column;
+  align-items: center;
+  min-height: 100px;
+  padding: 15px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+
+.container,
+#controls {
+  max-width: 450px;
+  display: flex;
+  margin: 25px auto;
+}
+
+.container,
+button {
+  font-family: sans-serif;
+  color: rgb(80, 75, 75);
+  border: 2px solid #b3aaaa;
+  border-radius: 5px;
+}
+
+#controls {
+  justify-content: space-between;
+}
+
+@media screen and (max-width: $mobile) {
+  #controls {
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    button {
+      margin: 5px;
+    }
+  }
+}
+
+button {
+  width: 100px;
+  outline: none;
+  background-color: rgb(165, 121, 185);
+  font-weight: 600;
+  min-height: 60px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(157, 88, 189);
+  }
+
+  &#attack::before {
+    content: "ATTACK";
+  }
+
+  &#attack:hover::before {
+    content: url(../images/attack.svg);
+  }
+
+  &#spec_attack::before {
+    content: "SPECIAL ATTACK";
+  }
+
+  &#spec_attack:disabled {
+    background-color: rgb(183, 166, 190);
+  }
+
+  &#spec_attack:hover::before {
+    content: url(../images/spec_attack.svg);
+  }
+
+  &#heal::before {
+    content: "HEAL";
+  }
+
+  &#heal:hover::before {
+    content: url(../images/heal.svg);
+  }
+
+  &#surrender::before {
+    content: "SURRENDER";
+  }
+
+  &#surrender:hover::before {
+    content: url(../images/surrender.svg);
+  }
+}
+
+.healthbar {
+  width: 100%;
+  height: 30px;
+  background-color: rgb(183, 166, 190);
+  border-radius: 25px;
+  overflow: hidden;
+
+  .healthbar__value {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(54, 158, 106);
+  }
+}
+
+#restart {
+  font-size: 15px;
+  margin-top: 15px;
+
+  &::before {
+    content: "RESTART";
+  }
+
+  &:hover::before {
+    content: url(../images/refresh.svg);
+  }
+}
+
+.healLog {
+  color: rgb(54, 158, 106);
+}
+
+.attackLog {
+  color: rgb(158, 44, 59);
+}
+
+li {
+  list-style-type: none;
+  margin: 5px;
+}
+
+#loggs li:nth-child(2n) {
+  border-bottom: 1px solid #b3aaaa;
+  padding: 5px;
+}
+
+@media screen and (max-width: $mobile) {
+}

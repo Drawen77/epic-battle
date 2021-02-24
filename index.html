@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Epic Battle</title>
+  </head>
+  <body>
+    <header>
+      <h1>Epic Battle</h1>
+    </header>
+    <main id="game">
+      <section id="dragon" class="container">
+        <h2>Dragon Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" :style="dragonBarStyles"></div>
+        </div>
+      </section>
+      <section id="knight" class="container">
+        <h2>Knight Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" :style="knightBarStyles"></div>
+        </div>
+      </section>
+
+      <section class="container" v-if="winner">
+        <h2 v-if="winner === 'draw' || winner === 'dragon'">Game over</h2>
+        <h2 v-else-if="winner === 'knight'">Congratulations!</h2>
+        <h3 v-if="winner === 'dragon'">You lost!</h3>
+        <h3 v-else-if="winner === 'knight'">You won!</h3>
+        <h3 v-else-if="winner === 'draw'">It`s a draw!</h3>
+        <button @click="restartGame" id="restart"></button>
+      </section>
+
+      <section id="controls" v-if="!winner">
+        <button id="attack" @click="attackDragon"></button>
+        <button
+          id="spec_attack"
+          :disabled="canIUseSpecAttack"
+          @click="specialAttackDragon"
+        ></button>
+        <button id="heal" @click="healKnight"></button>
+        <button id="surrender" @click="knightSurrender"></button>
+      </section>
+      <section id="log" class="container">
+        <h2>Battle Log:</h2>
+        <ul id="loggs">
+          <li v-for="log in logMessage">
+            <span
+              >{{ log.actionBy === 'knight' ? 'Knight(You)' : 'Dragon(Opponent)'
+              }}</span
+            >
+            <span class="healLog" v-if="log.actionType === 'heal'">
+              heals himself for {{ log.actionValue }} points</span
+            >
+            <span class="attackLog" v-else>
+              attacks and deals {{ log.actionValue }} points</span
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>
